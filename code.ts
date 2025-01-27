@@ -53,6 +53,11 @@ figma.ui.onmessage = (msg: {
           `
             opacity-${opacityfn(node)}
             ${fontsizefn(node)}
+            ${fontsizefn(node)}
+            ${fontsizefn(node)}
+            ${fontsizefn(node)}
+            ${fontsizefn(node)}
+            ${fontsizefn(node)}
             `,
         ],
       });

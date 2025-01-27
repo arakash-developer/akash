@@ -23,6 +23,14 @@
       }
       .coderesults {
         margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .flex{
+        display: flex;
+        gap: 5px  ;
+        align-items: center;
       }
     </style>
   </head>
@@ -32,39 +40,19 @@
         <h1>Tailwind Code</h1>
         <button id="getCode">Get Code</button>
       </div>
-      <div class="coderesults">Hellow World</div>
+      <div class="coderesults">Click on Get Code</div>
     </main>
 
-    <h2 class="mt-52">Rectangle Creator</h2>
+    <!-- <h2 class="mt-52">Rectangle Creator</h2>
     <p>Count: <input id="count" type="number" value="5" /></p>
     <button id="create">Create</button>
     <p>
       coderesultsaciy: <input id="coderesultsacity" type="number" value="5" />
     </p>
-    <button id="coderesultsacitybtn">coderesultsacity Change</button>
-    <button id="cancel">Cancel</button>
+    <button id="coderesultsacitybtn">coderesultsacity Change</button> -->
+    <!-- <button id="cancel">Cancel</button> -->
     <script>
-      document.getElementById("create").onclick = () => {
-        let textbox = document.getElementById("count");
-        let count = parseInt(textbox.value, 10);
-        parent.postMessage(
-          { pluginMessage: { type: "create-shapes", count } },
-          "*"
-        );
-      };
-      document.getElementById("coderesultsacitybtn").onclick = () => {
-        let textbox = document.getElementById("coderesultsacity");
-        let coderesultsacityPersentence = parseInt(textbox.value, 10);
-        parent.postMessage(
-          {
-            pluginMessage: {
-              type: "coderesultsacityChange",
-              coderesultsacityPersentence,
-            },
-          },
-          "*"
-        );
-      };
+      
 
       let flag = 0;
       document.getElementById("getCode").onclick = () => {
@@ -88,9 +76,10 @@
             const coderesultspp = document.querySelector(".coderesults");
             console.log(pluginMessage.message);
             const allItems = pluginMessage.message.map((item) => {
-              return `<div>${item}</div>`;
+              return `<div class="flex">${item}</div>`;
             });
-            coderesultspp.innerHTML = allItems.join("");
+            coderesultspp.innerHTML = allItems.join("</br>");
+
 
             function ccoderesultsyArrayToClipboard() {
               const arrayString = pluginMessage.message
@@ -118,9 +107,32 @@
         };
       };
 
-      document.getElementById("cancel").onclick = () => {
-        parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
-      };
+      // document.getElementById("cancel").onclick = () => {
+      //   parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
+      // };
+
+
+      // document.getElementById("create").onclick = () => {
+      //   let textbox = document.getElementById("count");
+      //   let count = parseInt(textbox.value, 10);
+      //   parent.postMessage(
+      //     { pluginMessage: { type: "create-shapes", count } },
+      //     "*"
+      //   );
+      // };
+      // document.getElementById("coderesultsacitybtn").onclick = () => {
+      //   let textbox = document.getElementById("coderesultsacity");
+      //   let coderesultsacityPersentence = parseInt(textbox.value, 10);
+      //   parent.postMessage(
+      //     {
+      //       pluginMessage: {
+      //         type: "coderesultsacityChange",
+      //         coderesultsacityPersentence,
+      //       },
+      //     },
+      //     "*"
+      //   );
+      // };
     </script>
   </body>
 </html>
