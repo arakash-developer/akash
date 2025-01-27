@@ -43,9 +43,8 @@ figma.ui.onmessage = (msg: {
       let bb = node.children.find((child) => child.type === "RECTANGLE").y; 
       let c = node.children.find((child) => child.type === "TEXT").x; 
       let d = node.children.find((child) => child.type === "TEXT").y; 
-      let px = a-bb;
+      let px = a-c;
       let py = bb-d;
-      console.log("px"+px+" "+"py"+py);
       
       function ensurePositive(value: number): number {
         return value < 0 ? -value : value;  // If negative, return positive (absolute value); otherwise, return the number itself
