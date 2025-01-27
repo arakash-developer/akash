@@ -1,17 +1,7 @@
-// This plugin will open a window to prompt the user to enter a number, and
-// it will then create that many rectangles on the screen.
 
-// This file holds the main code for plugins. Code in this file has access to
-// the *figma document* via the figma global object.
-// You can access browser APIs in the <script> tag inside "ui.html" which has a
-// full browser environment (See https://www.figma.com/plugin-docs/how-plugins-run).
-
-// This shows the HTML page in "ui.html".
 figma.showUI(__html__);
 
-// Calls to "parent.postMessage" from within the HTML page will trigger this
-// callback. The callback will be passed the "pluginMessage" property of the
-// posted message.
+
 
 figma.ui.onmessage = (msg: {
   type: string;
@@ -44,8 +34,47 @@ figma.ui.onmessage = (msg: {
     console.log("Akash");
     // console.log(zz);
   } else if (msg.type === "get-Code") {
+    
     // const zz = msg.opacityPersentence;
     for (const node of figma.currentPage.selection) {
+      console.log(node);
+
+
+      let a = node.children.find((child) => child.type === "RECTANGLE").x; 
+      let bb = node.children.find((child) => child.type === "RECTANGLE").y; 
+      let c = node.children.find((child) => child.type === "TEXT").x; 
+      let d = node.children.find((child) => child.type === "TEXT").y; 
+      let px = a-bb;
+      let py = bb-d;
+      console.log("px"+px+" "+"py"+py);
+      
+      function ensurePositive(value: number): number {
+        return value < 0 ? -value : value;  // If negative, return positive (absolute value); otherwise, return the number itself
+      }
+
+      let newpx = ensurePositive(px);
+      let newpy = ensurePositive(py);
+      
+      let co = node.children.find((child) => child.type === "RECTANGLE").fills[0].color;
+      const { r, g, b } = co;
+      const opacity = 1;
+      console.log(`Color: R=${r}, G=${g}, B=${b}, Opacity=${opacity}`);
+      console.log(rgbToHex(r, g, b));
+      
+      function rgbToHex(r: number, g: number, b: number): string {
+        const toHex = (x: number): string =>
+          Math.round(x * 255)
+            .toString(16)
+            .padStart(2, "0");
+      
+        return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+      }
+     
+      console.log(`<div class="px-[${newpx}px] py-[${newpy}px] bg-[${rgbToHex(r, g, b)}]">
+      <p></p>
+      </div>`);
+      
+      // 0.9624999761581421
       // Send a message to the UI
       figma.ui.postMessage({
         type: "code",
