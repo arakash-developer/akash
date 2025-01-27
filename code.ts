@@ -46,25 +46,26 @@ figma.ui.onmessage = (msg: {
   } else if (msg.type === "get-Code") {
     // const zz = msg.opacityPersentence;
     for (const node of figma.currentPage.selection) {
-        // Send a message to the UI
-        figma.ui.postMessage({
-          type: "code",
-          message: [`
+      // Send a message to the UI
+      figma.ui.postMessage({
+        type: "code",
+        message: [
+          `
             opacity-${opacityfn(node)}
-            opacity-${opacityfn(node)}
-            `],
-        });
+            ${fontsizefn(node)}
+            `,
+        ],
+      });
     }
   } else {
     figma.closePlugin();
   }
 };
 
-
-const opacityfn = (node) =>{
+const opacityfn = (node) => {
   if ("opacity" in node) {
-    let op = node.opacity * 100;
-    let  opa = Number(op.toFixed(0));
+    const op = node.opacity * 100;
+    const opa = Number(op.toFixed(0));
     if (opa === 0) {
       return 0;
     } else if (opa === 5) {
@@ -97,4 +98,25 @@ const opacityfn = (node) =>{
       return `[${opa}]`;
     }
   }
-}
+};
+
+const fontsizefn = (node) => {
+  if ("fontSize" in node) {
+    if (node.fontSize === 12) return "text-xs";  
+    if (node.fontSize === 14) return "text-sm";  
+    if (node.fontSize === 16) return "text-base";
+    if (node.fontSize === 18) return "text-lg";  
+    if (node.fontSize === 20) return "text-xl";  
+    if (node.fontSize === 24) return "text-2xl"; 
+    if (node.fontSize === 30) return "text-3xl"; 
+    if (node.fontSize === 36) return "text-4xl"; 
+    if (node.fontSize === 48) return "text-5xl"; 
+    if (node.fontSize === 60) return "text-6xl"; 
+    if (node.fontSize === 72) return "text-7xl"; 
+    if (node.fontSize === 96) return "text-8xl"; 
+    if (node.fontSize === 128) return "text-9xl";
+    return `text-[${node.fontSize}px]`;
+  }else{
+    return "";
+  }
+};

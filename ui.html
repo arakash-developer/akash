@@ -2,22 +2,46 @@
 <html lang="en">
   <head>
     <title>Document</title>
+    <style>
+      .header {
+        padding: 0px 5px;
+      }
+      .header .inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .header .inner h1 {
+        font-size: 20px;
+      }
+      .header .inner button {
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: black;
+        color: white;
+      }
+      .coderesults {
+        margin-top: 15px;
+      }
+    </style>
   </head>
   <body>
-    <main class="px-1">
-      <div class="flex justify-between items-center">
+    <main class="header px-1">
+      <div class="inner">
         <h1>Tailwind Code</h1>
         <button id="getCode">Get Code</button>
-        <button id="copyButton">Copy Array to Clipboard</button>
       </div>
-      <div class="mt-2 op">Hellow World</div>
+      <div class="coderesults">Hellow World</div>
     </main>
 
     <h2 class="mt-52">Rectangle Creator</h2>
     <p>Count: <input id="count" type="number" value="5" /></p>
     <button id="create">Create</button>
-    <p>Opaciy: <input id="opacity" type="number" value="5" /></p>
-    <button id="opacitybtn">Opacity Change</button>
+    <p>
+      coderesultsaciy: <input id="coderesultsacity" type="number" value="5" />
+    </p>
+    <button id="coderesultsacitybtn">coderesultsacity Change</button>
     <button id="cancel">Cancel</button>
     <script>
       document.getElementById("create").onclick = () => {
@@ -28,20 +52,32 @@
           "*"
         );
       };
-      document.getElementById("opacitybtn").onclick = () => {
-        let textbox = document.getElementById("opacity");
-        let opacityPersentence = parseInt(textbox.value, 10);
+      document.getElementById("coderesultsacitybtn").onclick = () => {
+        let textbox = document.getElementById("coderesultsacity");
+        let coderesultsacityPersentence = parseInt(textbox.value, 10);
         parent.postMessage(
-          { pluginMessage: { type: "opacityChange", opacityPersentence } },
+          {
+            pluginMessage: {
+              type: "coderesultsacityChange",
+              coderesultsacityPersentence,
+            },
+          },
           "*"
         );
       };
 
+      let flag = 0;
       document.getElementById("getCode").onclick = () => {
-        let textbox = document.getElementById("opacity");
-        let opacityPersentence = parseInt(textbox.value, 10);
+        if (flag === 0) {
+          flag = 1;
+        } else {
+          flag = 0;
+        }
+
+        let textbox = document.getElementById("coderesultsacity");
+        let coderesultsacityPersentence = parseInt(textbox.value, 10);
         parent.postMessage(
-          { pluginMessage: { type: "get-Code", opacityPersentence } },
+          { pluginMessage: { type: "get-Code", coderesultsacityPersentence } },
           "*"
         );
 
@@ -49,25 +85,35 @@
         window.onmessage = (event) => {
           const { pluginMessage } = event.data;
           if (pluginMessage.type === "code") {
-            const oppp = document.querySelector(".op");
+            const coderesultspp = document.querySelector(".coderesults");
             console.log(pluginMessage.message);
             const allItems = pluginMessage.message.map((item) => {
               return `<div>${item}</div>`;
             });
-            oppp.innerHTML = allItems.join("");
+            coderesultspp.innerHTML = allItems.join("");
 
-            function copyArrayToClipboard() {
-              const arrayString =  pluginMessage.message.join('').replace(/\n/g, ''); // Join and remove any line breaks
+            function ccoderesultsyArrayToClipboard() {
+              const arrayString = pluginMessage.message
+                .join("")
+                .replace(/\n/g, "");
               const textArea = document.createElement("textarea");
               textArea.value = arrayString;
               document.body.appendChild(textArea);
               textArea.select();
-              document.execCommand("copy");
+              document.execCommand("ccoderesultsy");
               document.body.removeChild(textArea);
-
-              console.log("Array copied to clipboard:", arrayString);
+              let copybtn = document.querySelector("#getCode");
+              if (flag === 1) {
+                copybtn.textContent = "Copied";
+                setTimeout(() => {
+                  copybtn.textContent = "Get Code";
+                }, 500);
+              } else {
+                copybtn.textContent = "Get Code";
+              }
+              console.log("Array ccoderesultsied to clipboard:", arrayString);
             }
-            copyArrayToClipboard();
+            ccoderesultsyArrayToClipboard();
           }
         };
       };
