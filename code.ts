@@ -46,22 +46,55 @@ figma.ui.onmessage = (msg: {
   } else if (msg.type === "get-Code") {
     // const zz = msg.opacityPersentence;
     for (const node of figma.currentPage.selection) {
-      let p = node.height;
-      console.log(p);
-      
-      if ("opacity" in node) {
-        const op = node.opacity * 100;
-        const opval = op.toFixed(0);
         // Send a message to the UI
         figma.ui.postMessage({
           type: "code",
-          message: [
-            `opacity-${opval}`,
-          ],
+          message: [`
+            opacity-${opacityfn(node)}
+            opacity-${opacityfn(node)}
+            `],
         });
-      }
     }
   } else {
     figma.closePlugin();
   }
 };
+
+
+const opacityfn = (node) =>{
+  if ("opacity" in node) {
+    let op = node.opacity * 100;
+    let  opa = Number(op.toFixed(0));
+    if (opa === 0) {
+      return 0;
+    } else if (opa === 5) {
+      return 5;
+    } else if (opa === 10) {
+      return 10;
+    } else if (opa === 20) {
+      return 20;
+    } else if (opa === 25) {
+      return 25;
+    } else if (opa === 30) {
+      return 30;
+    } else if (opa === 40) {
+      return 40;
+    } else if (opa === 50) {
+      return 50;
+    } else if (opa === 60) {
+      return 60;
+    } else if (opa === 70) {
+      return 70;
+    } else if (opa === 75) {
+      return 75;
+    } else if (opa === 80) {
+      return 80;
+    } else if (opa === 90) {
+      return 90;
+    } else if (opa === 100) {
+      return 100;
+    } else {
+      return `[${opa}]`;
+    }
+  }
+}

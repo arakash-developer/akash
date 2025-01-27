@@ -2,17 +2,13 @@
 <html lang="en">
   <head>
     <title>Document</title>
-    <style>
-      @import "tailwindcss";
-    </style>
-
-
   </head>
   <body>
     <main class="px-1">
       <div class="flex justify-between items-center">
         <h1>Tailwind Code</h1>
         <button id="getCode">Get Code</button>
+        <button id="copyButton">Copy Array to Clipboard</button>
       </div>
       <div class="mt-2 op">Hellow World</div>
     </main>
@@ -48,26 +44,36 @@
           { pluginMessage: { type: "get-Code", opacityPersentence } },
           "*"
         );
-      };
 
-      document.addEventListener("click", () => {
-        console.log("clicked");
-      });
+        // Listen for messages from the TypeScript code
+        window.onmessage = (event) => {
+          const { pluginMessage } = event.data;
+          if (pluginMessage.type === "code") {
+            const oppp = document.querySelector(".op");
+            console.log(pluginMessage.message);
+            const allItems = pluginMessage.message.map((item) => {
+              return `<div>${item}</div>`;
+            });
+            oppp.innerHTML = allItems.join("");
+
+            function copyArrayToClipboard() {
+              const arrayString =  pluginMessage.message.join('').replace(/\n/g, ''); // Join and remove any line breaks
+              const textArea = document.createElement("textarea");
+              textArea.value = arrayString;
+              document.body.appendChild(textArea);
+              textArea.select();
+              document.execCommand("copy");
+              document.body.removeChild(textArea);
+
+              console.log("Array copied to clipboard:", arrayString);
+            }
+            copyArrayToClipboard();
+          }
+        };
+      };
 
       document.getElementById("cancel").onclick = () => {
         parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
-      };
-
-      // Listen for messages from the TypeScript code
-      window.onmessage = (event) => {
-        const { pluginMessage } = event.data;
-        if (pluginMessage.type === "code") {
-          console.log(pluginMessage.message); // Logs: "Hello from TypeScript!"
-          let oppp = document.querySelector(".op");
-          oppp.innerHTML = `
-  <h1 class="bg-red-300">Hellow World</h1> 
-  `;
-        }
       };
     </script>
   </body>

@@ -11,9 +11,6 @@
   ],
   "ui": "ui.html",
   "networkAccess": {
-    "allowedDomains": [
-      "https://cdn.tailwindcss.com",
-      "https://unpkg.com/@tailwindcss/browser@4"
-    ]
+    "allowedDomains": ["none"]
   }
 }
