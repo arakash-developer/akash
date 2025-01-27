@@ -37,8 +37,7 @@ figma.ui.onmessage = (msg: {
     
     // const zz = msg.opacityPersentence;
     for (const node of figma.currentPage.selection) {
-      console.log(node);
-
+      console.log(node); 
 
       let a = node.children.find((child) => child.type === "RECTANGLE").x; 
       let bb = node.children.find((child) => child.type === "RECTANGLE").y; 
