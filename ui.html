@@ -43,14 +43,16 @@
       <div class="coderesults">Click on Get Code</div>
     </main>
 
-    <!-- <h2 class="mt-52">Rectangle Creator</h2>
-    <p>Count: <input id="count" type="number" value="5" /></p>
-    <button id="create">Create</button>
-    <p>
-      coderesultsaciy: <input id="coderesultsacity" type="number" value="5" />
-    </p>
-    <button id="coderesultsacitybtn">coderesultsacity Change</button> -->
-    <!-- <button id="cancel">Cancel</button> -->
+    <section style="display: none;">
+      <h2 class="mt-52">Rectangle Creator</h2>
+      <p>Count: <input id="count" type="number" value="5" /></p>
+      <button id="create">Create</button>
+      <p>
+        coderesultsaciy: <input id="coderesultsacity" type="number" value="5" />
+      </p>
+      <button id="coderesultsacitybtn">coderesultsacity Change</button>
+      <button id="cancel">Cancel</button>
+    </section>
     <script>
       
 
@@ -107,9 +109,9 @@
         };
       };
 
-      // document.getElementById("cancel").onclick = () => {
-      //   parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
-      // };
+      document.getElementById("cancel").onclick = () => {
+        parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
+      };
 
 
       // document.getElementById("create").onclick = () => {
