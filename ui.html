@@ -1,51 +1,74 @@
-<h1>Tailwind Code</h1>
-<button id="getCode">Get Code</button>
-<h2>Rectangle Creator</h2>
-<p>Count: <input id="count" type="number" value="5" /></p>
-<button id="create">Create</button>
-<p>Opaciy: <input id="opacity" type="number" value="5" /></p>
-<button id="opacitybtn">Opacity Change</button>
-<button id="cancel">Cancel</button>
-<script>
-  document.getElementById("create").onclick = () => {
-    let textbox = document.getElementById("count");
-    let count = parseInt(textbox.value, 10);
-    parent.postMessage(
-      { pluginMessage: { type: "create-shapes", count } },
-      "*"
-    );
-  };
-  document.getElementById("opacitybtn").onclick = () => {
-    let textbox = document.getElementById("opacity");
-    let opacityPersentence = parseInt(textbox.value, 10);
-    parent.postMessage(
-      { pluginMessage: { type: "opacityChange", opacityPersentence } },
-      "*"
-    );
-  };
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+    <style>
+      @import "tailwindcss";
+    </style>
 
-  document.getElementById("getCode").onclick = () => {
-    let textbox = document.getElementById("opacity");
-    let opacityPersentence = parseInt(textbox.value, 10);
-    parent.postMessage(
-      { pluginMessage: { type: "get-Code", opacityPersentence } },
-      "*"
-    );
-  };
 
-  document.addEventListener("click", () => {
-    console.log("clicked");
-  });
+  </head>
+  <body>
+    <main class="px-1">
+      <div class="flex justify-between items-center">
+        <h1>Tailwind Code</h1>
+        <button id="getCode">Get Code</button>
+      </div>
+      <div class="mt-2 op">Hellow World</div>
+    </main>
 
-  document.getElementById("cancel").onclick = () => {
-    parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
-  };
+    <h2 class="mt-52">Rectangle Creator</h2>
+    <p>Count: <input id="count" type="number" value="5" /></p>
+    <button id="create">Create</button>
+    <p>Opaciy: <input id="opacity" type="number" value="5" /></p>
+    <button id="opacitybtn">Opacity Change</button>
+    <button id="cancel">Cancel</button>
+    <script>
+      document.getElementById("create").onclick = () => {
+        let textbox = document.getElementById("count");
+        let count = parseInt(textbox.value, 10);
+        parent.postMessage(
+          { pluginMessage: { type: "create-shapes", count } },
+          "*"
+        );
+      };
+      document.getElementById("opacitybtn").onclick = () => {
+        let textbox = document.getElementById("opacity");
+        let opacityPersentence = parseInt(textbox.value, 10);
+        parent.postMessage(
+          { pluginMessage: { type: "opacityChange", opacityPersentence } },
+          "*"
+        );
+      };
 
-    // Listen for messages from the TypeScript code
-    window.onmessage = (event) => {
+      document.getElementById("getCode").onclick = () => {
+        let textbox = document.getElementById("opacity");
+        let opacityPersentence = parseInt(textbox.value, 10);
+        parent.postMessage(
+          { pluginMessage: { type: "get-Code", opacityPersentence } },
+          "*"
+        );
+      };
+
+      document.addEventListener("click", () => {
+        console.log("clicked");
+      });
+
+      document.getElementById("cancel").onclick = () => {
+        parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
+      };
+
+      // Listen for messages from the TypeScript code
+      window.onmessage = (event) => {
         const { pluginMessage } = event.data;
-        if (pluginMessage.type === 'code') {
-            console.log(pluginMessage.message); // Logs: "Hello from TypeScript!"
+        if (pluginMessage.type === "code") {
+          console.log(pluginMessage.message); // Logs: "Hello from TypeScript!"
+          let oppp = document.querySelector(".op");
+          oppp.innerHTML = `
+  <h1 class="bg-red-300">Hellow World</h1> 
+  `;
         }
-    };
-</script>
+      };
+    </script>
+  </body>
+</html>
